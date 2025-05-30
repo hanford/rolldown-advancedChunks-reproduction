@@ -1,4 +1,4 @@
-import { defineConfig } from "rolldown-vite";
+import { defineConfig } from "vite";
 import { reactRouter } from "@react-router/dev/vite";
 
 // https://vitejs.dev/config/

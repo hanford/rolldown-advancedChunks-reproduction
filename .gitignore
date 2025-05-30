@@ -25,3 +25,5 @@ dist-ssr
 .env
 
 .react-router
+
+out
