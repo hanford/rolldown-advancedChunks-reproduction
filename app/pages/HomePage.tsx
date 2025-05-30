@@ -1,11 +1,16 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
-import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
-import { Button } from '../components/ui/Button';
-import { AccountSummary } from '../components/dashboard/AccountSummary';
-import { RecentTransactions } from '../components/dashboard/RecentTransactions';
-import { ArrowRight, Shield, Lock, Bell } from 'lucide-react';
+import React from "react";
+import { Link } from "react-router";
+import { useAuth } from "../contexts/AuthContext";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "../components/ui/Card";
+import { Button } from "../components/ui/Button";
+import { AccountSummary } from "../components/dashboard/AccountSummary";
+import { RecentTransactions } from "../components/dashboard/RecentTransactions";
+import { ArrowRight, Shield, Lock, Bell } from "lucide-react";
 
 export const HomePage: React.FC = () => {
   const { user } = useAuth();
@@ -14,8 +19,12 @@ export const HomePage: React.FC = () => {
     <div className="space-y-6">
       <div className="bg-primary-600 -mx-8 -mt-8 px-8 py-12">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-2xl font-semibold text-white">Welcome back, {user?.firstName}!</h1>
-          <p className="mt-2 text-primary-100">Manage your finances with confidence</p>
+          <h1 className="text-2xl font-semibold text-white">
+            Welcome back, {user?.firstName}!
+          </h1>
+          <p className="mt-2 text-primary-100">
+            Manage your finances with confidence
+          </p>
         </div>
       </div>
 

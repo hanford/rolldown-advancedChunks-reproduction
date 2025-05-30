@@ -1,8 +1,8 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { User } from '../lib/types';
-import { useNavigate } from 'react-router-dom';
-import { mockUsers } from '../data/mockData';
-import { delay } from '../lib/utils';
+import React, { createContext, useContext, useState, useEffect } from "react";
+import { User } from "../lib/types";
+import { useNavigate } from "react-router";
+import { mockUsers } from "../data/mockData";
+import { delay } from "../lib/utils";
 
 interface AuthContextType {
   user: User | null;
@@ -24,8 +24,8 @@ const AuthContext = createContext<AuthContextType>({
 
 export const useAuth = () => useContext(AuthContext);
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ 
-  children 
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
 }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -35,12 +35,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   useEffect(() => {
     // Check if user is stored in localStorage
     const checkAuth = async () => {
-      const storedUser = localStorage.getItem('bankUser');
+      const storedUser = localStorage.getItem("bankUser");
       if (storedUser) {
         try {
           setUser(JSON.parse(storedUser));
         } catch (e) {
-          localStorage.removeItem('bankUser');
+          localStorage.removeItem("bankUser");
         }
       }
       setIsLoading(false);
@@ -52,27 +52,28 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const login = async (email: string, password: string): Promise<boolean> => {
     setIsLoading(true);
     setError(null);
-    
+
     try {
       // Simulate API call
       await delay(1000);
-      
+
       // In a real app, this would be an API call to validate credentials
-      const foundUser = mockUsers.find(u => u.email === email);
-      
-      if (foundUser && password === 'password') { // Simple password check for demo
+      const foundUser = mockUsers.find((u) => u.email === email);
+
+      if (foundUser && password === "password") {
+        // Simple password check for demo
         setUser(foundUser);
-        localStorage.setItem('bankUser', JSON.stringify(foundUser));
+        localStorage.setItem("bankUser", JSON.stringify(foundUser));
         setIsLoading(false);
         return true;
       } else {
-        throw new Error('Invalid email or password');
+        throw new Error("Invalid email or password");
       }
     } catch (e) {
       if (e instanceof Error) {
         setError(e.message);
       } else {
-        setError('An unknown error occurred');
+        setError("An unknown error occurred");
       }
       setIsLoading(false);
       return false;
@@ -81,8 +82,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem('bankUser');
-    navigate('/login');
+    localStorage.removeItem("bankUser");
+    navigate("/login");
   };
 
   return (

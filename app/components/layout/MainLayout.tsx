@@ -1,10 +1,10 @@
-import React from 'react';
-import { Outlet, Navigate } from 'react-router-dom';
-import { useAuth } from '../../contexts/AuthContext';
-import { Sidebar } from './Sidebar';
-import { Header } from './Header';
-import { cn } from '../../lib/utils';
-import { BankingProvider } from '../../contexts/BankingContext';
+import React from "react";
+import { Outlet, Navigate } from "react-router";
+import { useAuth } from "../../contexts/AuthContext";
+import { Sidebar } from "./Sidebar";
+import { Header } from "./Header";
+import { cn } from "../../lib/utils";
+import { BankingProvider } from "../../contexts/BankingContext";
 
 export const MainLayout: React.FC = () => {
   const { isAuthenticated, isLoading } = useAuth();
@@ -28,8 +28,8 @@ export const MainLayout: React.FC = () => {
         <Sidebar open={sidebarOpen} setOpen={setSidebarOpen} />
         <div
           className={cn(
-            'flex flex-col lg:pl-64 transition-all duration-300 ease-in-out',
-            sidebarOpen && 'md:pl-64'
+            "flex flex-col lg:pl-64 transition-all duration-300 ease-in-out",
+            sidebarOpen && "md:pl-64"
           )}
         >
           <Header toggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
@@ -41,7 +41,8 @@ export const MainLayout: React.FC = () => {
           <footer className="bg-white border-t border-neutral-200 py-4 px-6">
             <div className="mx-auto max-w-7xl">
               <div className="text-center text-sm text-neutral-500">
-                &copy; {new Date().getFullYear()} SecureBank. All rights reserved.
+                &copy; {new Date().getFullYear()} SecureBank. All rights
+                reserved.
               </div>
             </div>
           </footer>

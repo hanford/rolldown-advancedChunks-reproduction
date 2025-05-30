@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import { Navigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
-import { Button } from '../components/ui/Button';
-import { Input } from '../components/ui/Input';
-import { CreditCard } from 'lucide-react';
+import React, { useState } from "react";
+import { Navigate } from "react-router";
+import { useAuth } from "../contexts/AuthContext";
+import { Button } from "../components/ui/Button";
+import { Input } from "../components/ui/Input";
+import { CreditCard } from "lucide-react";
 
 export const LoginPage: React.FC = () => {
   const { login, isAuthenticated, error } = useAuth();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   if (isAuthenticated) {

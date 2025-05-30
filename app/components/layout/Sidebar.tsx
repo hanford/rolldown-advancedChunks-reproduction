@@ -1,19 +1,19 @@
-import React, { useEffect } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
-import { 
-  Home, 
-  CreditCard, 
-  LayoutDashboard, 
-  Settings, 
-  Bell, 
+import React, { useEffect } from "react";
+import { NavLink, useLocation } from "react-router";
+import {
+  Home,
+  CreditCard,
+  LayoutDashboard,
+  Settings,
+  Bell,
   X,
   PiggyBank,
   User,
   BarChart4,
-  HelpCircle
-} from 'lucide-react';
-import { cn } from '../../lib/utils';
-import { useAuth } from '../../contexts/AuthContext';
+  HelpCircle,
+} from "lucide-react";
+import { cn } from "../../lib/utils";
+import { useAuth } from "../../contexts/AuthContext";
 
 interface SidebarProps {
   open: boolean;
@@ -32,15 +32,15 @@ export const Sidebar: React.FC<SidebarProps> = ({ open, setOpen }) => {
   }, [location.pathname, setOpen, open]);
 
   const navigation = [
-    { name: 'Home', icon: Home, href: '/home' },
-    { name: 'Dashboard', icon: LayoutDashboard, href: '/dashboard' },
-    { name: 'Accounts', icon: CreditCard, href: '/accounts' },
-    { name: 'Analytics', icon: BarChart4, href: '/analytics' },
-    { name: 'Goals', icon: PiggyBank, href: '/goals' },
-    { name: 'Notifications', icon: Bell, href: '/notifications' },
-    { name: 'Profile', icon: User, href: '/profile' },
-    { name: 'Settings', icon: Settings, href: '/settings' },
-    { name: 'Help', icon: HelpCircle, href: '/help' },
+    { name: "Home", icon: Home, href: "/home" },
+    { name: "Dashboard", icon: LayoutDashboard, href: "/dashboard" },
+    { name: "Accounts", icon: CreditCard, href: "/accounts" },
+    { name: "Analytics", icon: BarChart4, href: "/analytics" },
+    { name: "Goals", icon: PiggyBank, href: "/goals" },
+    { name: "Notifications", icon: Bell, href: "/notifications" },
+    { name: "Profile", icon: User, href: "/profile" },
+    { name: "Settings", icon: Settings, href: "/settings" },
+    { name: "Help", icon: HelpCircle, href: "/help" },
   ];
 
   return (
@@ -56,8 +56,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ open, setOpen }) => {
       {/* Sidebar */}
       <div
         className={cn(
-          'fixed inset-y-0 left-0 z-30 w-64 bg-white border-r border-neutral-200 transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-auto',
-          open ? 'translate-x-0' : '-translate-x-full'
+          "fixed inset-y-0 left-0 z-30 w-64 bg-white border-r border-neutral-200 transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-auto",
+          open ? "translate-x-0" : "-translate-x-full"
         )}
       >
         <div className="flex flex-col h-full">
@@ -82,7 +82,10 @@ export const Sidebar: React.FC<SidebarProps> = ({ open, setOpen }) => {
               <div className="bg-neutral-50 rounded-lg p-4">
                 <div className="flex items-center">
                   <img
-                    src={user?.avatar || 'https://randomuser.me/api/portraits/men/32.jpg'}
+                    src={
+                      user?.avatar ||
+                      "https://randomuser.me/api/portraits/men/32.jpg"
+                    }
                     alt="User Avatar"
                     className="h-10 w-10 rounded-full object-cover border border-neutral-200"
                   />
@@ -97,17 +100,19 @@ export const Sidebar: React.FC<SidebarProps> = ({ open, setOpen }) => {
             </div>
 
             <div className="px-3 space-y-1">
-              <p className="text-xs font-semibold text-neutral-500 px-3 mb-2">MENU</p>
+              <p className="text-xs font-semibold text-neutral-500 px-3 mb-2">
+                MENU
+              </p>
               {navigation.map((item) => (
                 <NavLink
                   key={item.name}
                   to={item.href}
                   className={({ isActive }) =>
                     cn(
-                      'flex items-center px-3 py-2 text-sm rounded-md font-medium transition-colors',
+                      "flex items-center px-3 py-2 text-sm rounded-md font-medium transition-colors",
                       isActive
-                        ? 'bg-primary-50 text-primary-600'
-                        : 'text-neutral-700 hover:text-primary-500 hover:bg-neutral-50'
+                        ? "bg-primary-50 text-primary-600"
+                        : "text-neutral-700 hover:text-primary-500 hover:bg-neutral-50"
                     )
                   }
                 >
@@ -124,9 +129,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ open, setOpen }) => {
               <p className="text-xs text-primary-600 mt-1">
                 Contact our support team for assistance
               </p>
-              <button 
-                className="mt-2 text-xs font-medium text-primary-700 hover:text-primary-800"
-              >
+              <button className="mt-2 text-xs font-medium text-primary-700 hover:text-primary-800">
                 Contact Support
               </button>
             </div>

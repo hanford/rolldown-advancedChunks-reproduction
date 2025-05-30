@@ -1,24 +1,24 @@
-import React from 'react';
-import { useBanking } from '../../contexts/BankingContext';
-import { formatCurrency } from '../../lib/utils';
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/Card';
-import { 
-  CreditCard, 
-  Wallet, 
-  PiggyBank, 
-  LineChart, 
+import React from "react";
+import { useBanking } from "../../contexts/BankingContext";
+import { formatCurrency } from "../../lib/utils";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/Card";
+import {
+  CreditCard,
+  Wallet,
+  PiggyBank,
+  LineChart,
   ChevronRight,
   Plus,
-  Search 
-} from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { AccountType } from '../../lib/types';
-import { Button } from '../ui/Button';
-import { Input } from '../ui/Input';
+  Search,
+} from "lucide-react";
+import { Link } from "react-router";
+import { AccountType } from "../../lib/types";
+import { Button } from "../ui/Button";
+import { Input } from "../ui/Input";
 
 export const AccountList: React.FC = () => {
   const { accounts } = useBanking();
-  const [searchTerm, setSearchTerm] = React.useState('');
+  const [searchTerm, setSearchTerm] = React.useState("");
 
   const getAccountIcon = (type: AccountType) => {
     switch (type) {
@@ -36,19 +36,20 @@ export const AccountList: React.FC = () => {
   const getAccountColor = (type: AccountType) => {
     switch (type) {
       case AccountType.CHECKING:
-        return 'bg-primary-100 text-primary-600';
+        return "bg-primary-100 text-primary-600";
       case AccountType.SAVINGS:
-        return 'bg-success-100 text-success-600';
+        return "bg-success-100 text-success-600";
       case AccountType.CREDIT:
-        return 'bg-error-100 text-error-600';
+        return "bg-error-100 text-error-600";
       case AccountType.INVESTMENT:
-        return 'bg-secondary-100 text-secondary-600';
+        return "bg-secondary-100 text-secondary-600";
     }
   };
 
-  const filteredAccounts = accounts.filter(account => 
-    account.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    account.number.includes(searchTerm)
+  const filteredAccounts = accounts.filter(
+    (account) =>
+      account.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      account.number.includes(searchTerm)
   );
 
   return (
@@ -83,20 +84,36 @@ export const AccountList: React.FC = () => {
               <div className="rounded-lg border border-neutral-200 p-4 hover:border-primary-300 hover:shadow-sm transition-all">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center">
-                    <div className={`h-10 w-10 rounded-full ${getAccountColor(account.type)} flex items-center justify-center mr-4`}>
+                    <div
+                      className={`h-10 w-10 rounded-full ${getAccountColor(
+                        account.type
+                      )} flex items-center justify-center mr-4`}
+                    >
                       {getAccountIcon(account.type)}
                     </div>
                     <div>
-                      <p className="text-sm font-medium text-neutral-900">{account.name}</p>
-                      <p className="text-xs text-neutral-500">{account.number}</p>
+                      <p className="text-sm font-medium text-neutral-900">
+                        {account.name}
+                      </p>
+                      <p className="text-xs text-neutral-500">
+                        {account.number}
+                      </p>
                     </div>
                   </div>
                   <div className="flex items-center">
                     <div className="text-right mr-4">
-                      <p className={`text-lg font-semibold ${account.balance < 0 ? 'text-error-600' : 'text-neutral-900'}`}>
+                      <p
+                        className={`text-lg font-semibold ${
+                          account.balance < 0
+                            ? "text-error-600"
+                            : "text-neutral-900"
+                        }`}
+                      >
                         {formatCurrency(account.balance)}
                       </p>
-                      <p className="text-xs text-neutral-500">{account.currency}</p>
+                      <p className="text-xs text-neutral-500">
+                        {account.currency}
+                      </p>
                     </div>
                     <ChevronRight className="h-5 w-5 text-neutral-400" />
                   </div>
@@ -104,7 +121,7 @@ export const AccountList: React.FC = () => {
               </div>
             </Link>
           ))}
-          
+
           {filteredAccounts.length === 0 && (
             <div className="text-center py-8">
               <p className="text-neutral-500">No accounts found</p>
