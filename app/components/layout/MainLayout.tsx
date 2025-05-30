@@ -24,12 +24,12 @@ export const MainLayout: React.FC = () => {
 
   return (
     <BankingProvider>
-      <div className="min-h-screen bg-neutral-50">
+      <div className="min-h-screen bg-neutral-50 flex">
         <Sidebar open={sidebarOpen} setOpen={setSidebarOpen} />
         <div
           className={cn(
-            "flex flex-col lg:pl-64 transition-all duration-300 ease-in-out",
-            sidebarOpen && "md:pl-64"
+            "flex flex-col flex-1 transition-all duration-300 ease-in-out",
+            sidebarOpen ? "lg:ml-64" : "lg:ml-0"
           )}
         >
           <Header toggleSidebar={() => setSidebarOpen(!sidebarOpen)} />

@@ -1,11 +1,10 @@
 import React from "react";
 import { useBanking } from "../../contexts/BankingContext";
-import { formatCurrency } from "../../lib/utils";
+import { formatCurrency } from "../../utils/formatCurrency";
+import { maskAccountNumber } from "../../utils/maskAccountNumber";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/Card";
 import {
-  Plus,
   ArrowUpRight,
-  ArrowDownRight,
   Wallet,
   PiggyBank,
   CreditCard,
@@ -17,8 +16,37 @@ import { AccountType } from "../../lib/types";
 export const AccountSummary: React.FC = () => {
   const { accounts } = useBanking();
 
+  // Sample accounts if banking context doesn't have them
+  const sampleAccounts = [
+    {
+      id: "1",
+      name: "Primary Checking",
+      balance: 2547.83,
+      number: "1234567890123456",
+      type: AccountType.CHECKING,
+    },
+    {
+      id: "2",
+      name: "High Yield Savings",
+      balance: 15240.92,
+      number: "9876543210987654",
+      type: AccountType.SAVINGS,
+    },
+    {
+      id: "3",
+      name: "Rewards Credit Card",
+      balance: -847.23,
+      number: "4567890123456789",
+      type: AccountType.CREDIT,
+    },
+  ];
+
+  // Use sample accounts if none exist
+  const displayAccounts =
+    accounts && accounts.length > 0 ? accounts : sampleAccounts;
+
   const getTotalBalance = () => {
-    return accounts.reduce((sum, account) => {
+    return displayAccounts.reduce((sum, account) => {
       // Don't add credit card balances to total
       if (account.type !== AccountType.CREDIT) {
         return sum + account.balance;
@@ -84,7 +112,7 @@ export const AccountSummary: React.FC = () => {
                 </p>
               </div>
 
-              {accounts.map((account) => (
+              {displayAccounts.map((account) => (
                 <Link
                   key={account.id}
                   to={`/accounts/${account.id}`}
@@ -105,7 +133,7 @@ export const AccountSummary: React.FC = () => {
                             {account.name}
                           </p>
                           <p className="text-xs text-white text-opacity-80">
-                            {account.number}
+                            {maskAccountNumber(account.number)}
                           </p>
                         </div>
                       </div>
