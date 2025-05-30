@@ -7,4 +7,17 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ["lucide-react"],
   },
+  build: {
+    rollupOptions: {
+      // experimental: {
+      //   useAdvancedChunks: true,
+      // },
+      output: {
+        advancedChunks: {
+          minSize: 10_000,
+          minModuleSize: 10_000,
+        },
+      },
+    },
+  },
 });
