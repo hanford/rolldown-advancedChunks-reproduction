@@ -1,7 +1,10 @@
 import path from "path";
 import type { BunPlugin } from "bun";
-import { setAppDirectory } from "@react-router/dev/routes";
 import { flatRoutes } from "@react-router/fs-routes";
+
+function setAppDirectory(directory: string) {
+  (globalThis as any).__reactRouterAppDirectory = directory;
+}
 
 const BUILD_CLIENT_ROUTE_QUERY = "?__react-router-build-client-route";
 
