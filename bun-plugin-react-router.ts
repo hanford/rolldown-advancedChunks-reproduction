@@ -1,5 +1,5 @@
 import path from "path";
-import type { BunPlugin } from "bun";
+import { plugin as register, type BunPlugin } from "bun";
 import { flatRoutes } from "@react-router/fs-routes";
 
 function setAppDirectory(directory: string) {
@@ -30,8 +30,13 @@ const plugin: BunPlugin = {
   setup(build) {
     const routesFile = path.resolve("./app/routes.ts");
 
-    build.onResolve({ filter: new RegExp(routesFile.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")) }, () => {
-      return { path: routesFile, namespace: "react-router-routes" };
+    // Support any import that resolves to app/routes.ts
+    build.onResolve({ filter: /.*/ }, args => {
+      const withoutQuery = args.path.split("?")[0];
+      const resolved = path.resolve(args.resolveDir, withoutQuery);
+      if (resolved === routesFile || resolved + ".ts" === routesFile) {
+        return { path: routesFile, namespace: "react-router-routes" };
+      }
     });
 
     build.onLoad({ filter: /.*/, namespace: "react-router-routes" }, async () => {
@@ -41,7 +46,7 @@ const plugin: BunPlugin = {
         contents:
           "import type { RouteConfig } from '@react-router/dev/routes';\n" +
           `export default ${JSON.stringify(config)} satisfies RouteConfig;`,
-        loader: "js",
+        loader: "ts",
       };
     });
 
@@ -66,6 +71,7 @@ const plugin: BunPlugin = {
       return { contents: clientLines + "\n" + serverLines, loader: "js" };
     });
   },
-};
+}; 
 
+register(plugin);
 export default plugin;
