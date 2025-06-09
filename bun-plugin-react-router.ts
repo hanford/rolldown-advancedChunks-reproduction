@@ -73,5 +73,10 @@ const plugin: BunPlugin = {
   },
 }; 
 
-register(plugin);
+// Register the plugin at runtime if Bun.plugin is available. This allows
+// dynamic imports of route modules to work when running via `Bun.serve` but
+// avoids errors when the file is loaded solely as a bundler plugin.
+if (typeof Bun !== "undefined" && typeof Bun.plugin === "function") {
+  Bun.plugin(plugin);
+}
 export default plugin;

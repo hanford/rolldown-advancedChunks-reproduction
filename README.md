@@ -9,7 +9,7 @@ https://github.com/vitejs/rolldown-vite/issues/195
 
 ### Bun Development
 
-This repo includes a small Bun plugin that mimics a subset of the React Router Vite plugin. It generates the route config used by `app/routes.ts` and intercepts route modules imported with the `?__react-router-build-client-route` query to re-export the client-facing symbols. Enable it via `bunfig.toml`:
+This repo includes a small Bun plugin that mimics a subset of the React Router Vite plugin. It generates the route config used by `app/routes.ts` and intercepts route modules imported with the `?__react-router-build-client-route` query to re-export the client-facing symbols. The plugin also registers itself at runtime so dynamic imports work under `Bun.serve()`. Enable it via `bunfig.toml`:
 
 ```toml
 [serve]
