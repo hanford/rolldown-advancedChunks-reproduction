@@ -50,7 +50,7 @@ const plugin: BunPlugin = {
       };
     });
 
-    build.onResolve({ filter: /\\?__react-router-build-client-route$/ }, args => {
+    build.onResolve({ filter: /\?__react-router-build-client-route$/ }, args => {
       const resolved = path.resolve(args.importer ? path.dirname(args.importer) : process.cwd(), args.path);
       return { path: resolved, namespace: "react-router-client" };
     });
