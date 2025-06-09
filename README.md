@@ -25,5 +25,8 @@ Run the dev server with:
 bun run index.html
 ```
 
+The HTML file references `src/main.tsx`, which simply imports the React Router
+client entry at `app/entry.client.tsx`.
+
 When imported on the server, the generated modules expose async `loader()` and `action()` functions that proxy to the underlying route modules. You can call these from your `Bun.serve()` `fetch` handler to run React Router loaders and actions.
 
