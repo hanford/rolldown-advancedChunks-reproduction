@@ -1,0 +1,5 @@
+[serve]
+port = 3000
+
+[serve.static]
+plugins = ["./bun-plugin-react-router.ts"]
