@@ -1,5 +1,7 @@
 import path from "path";
 import type { BunPlugin } from "bun";
+import { setAppDirectory } from "@react-router/dev/routes";
+import { flatRoutes } from "@react-router/fs-routes";
 
 const BUILD_CLIENT_ROUTE_QUERY = "?__react-router-build-client-route";
 
@@ -23,6 +25,23 @@ const SERVER_EXPORTS = ["loader", "action"];
 const plugin: BunPlugin = {
   name: "react-router-bun",
   setup(build) {
+    const routesFile = path.resolve("./app/routes.ts");
+
+    build.onResolve({ filter: new RegExp(routesFile.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")) }, () => {
+      return { path: routesFile, namespace: "react-router-routes" };
+    });
+
+    build.onLoad({ filter: /.*/, namespace: "react-router-routes" }, async () => {
+      setAppDirectory(path.resolve("./app"));
+      const config = await flatRoutes();
+      return {
+        contents:
+          "import type { RouteConfig } from '@react-router/dev/routes';\n" +
+          `export default ${JSON.stringify(config)} satisfies RouteConfig;`,
+        loader: "js",
+      };
+    });
+
     build.onResolve({ filter: /\\?__react-router-build-client-route$/ }, args => {
       const resolved = path.resolve(args.importer ? path.dirname(args.importer) : process.cwd(), args.path);
       return { path: resolved, namespace: "react-router-client" };
